@@ -1,4 +1,4 @@
-import { createPoll } from './framadate.mjs'
+import { createPoll } from './framadate.js'
 import minimist from 'minimist'
 import dayjs from 'dayjs'
 
