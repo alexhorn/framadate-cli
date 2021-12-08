@@ -124,9 +124,9 @@ const datetimes = parseCommand(days, times)
 
 if (args.framadate) {
   const { url, adminUrl } = await createPoll(args.framadate, {
-    name: 'Tester McTest',
-    title: 'Testumfrage',
-    email: 'tester@invalid',
+    name: args.name,
+    title: args.title,
+    email: args.email,
     times: datetimes
   })
   console.log('Poll created!')
