@@ -6,10 +6,16 @@ import dayjs from 'dayjs'
 
 const args = minimist(process.argv.slice(2))
 
+/**
+ * Format a dayjs object as an ISO date (like "2021-01-01")
+ */
 function toISODate (day) {
   return day.toISOString().substr(0, 10)
 }
 
+/**
+ * Get the next occurence of a weekday, optionally starting at a certain day
+ */
 function getNextDayOfWeek (dow, start = dayjs().add(1, 'day')) {
   for (let i = 0; i < 7; ++i) {
     const day = start.add(i, 'day')
@@ -20,6 +26,9 @@ function getNextDayOfWeek (dow, start = dayjs().add(1, 'day')) {
   throw new Error(`Could not parse ${dow}`)
 }
 
+/**
+ * Parse a day like "mo" or "2020-01-01"
+ */
 function parseDay (day, start = undefined) {
   try {
     return getNextDayOfWeek(day, start)
@@ -28,6 +37,9 @@ function parseDay (day, start = undefined) {
   }
 }
 
+/**
+ * Parse a day command like "2020-01-01", "mo-fr" or "sa,su"
+ */
 function parseDays (cmd) {
   if (/,/.test(cmd)) {
     // parse a list of weekdays while keeping the order intact
@@ -53,6 +65,9 @@ function parseDays (cmd) {
   }
 }
 
+/**
+ * Parse a time command like "14:00,18:00"
+ */
 function parseTimes (cmd) {
   // parameter might be an integer when only the hour is supplied
   cmd = cmd.toString()
@@ -70,6 +85,9 @@ function parseTimes (cmd) {
   return times
 }
 
+/**
+ * Parse a combination of a day and a time command
+ */
 function parseCommand (days, times) {
   const datetimes = []
   for (const day of parseDays(days)) {

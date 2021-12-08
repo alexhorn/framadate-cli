@@ -4,8 +4,10 @@ import fetch from 'node-fetch'
 import dayjs from 'dayjs'
 import _ from 'lodash'
 
-// different framadate installations use different date formats
-// this maps them to dayjs format strings
+/**
+ * Map Framadate date formats to dayjs date formats
+ * (Different Framadate installations use different date formats)
+ */
 function fixDateFormat (format) {
   if (format === 'tt/mm/jjjj') {
     return 'DD/MM/YYYY'
@@ -14,6 +16,9 @@ function fixDateFormat (format) {
   }
 }
 
+/**
+ * Create a poll on the specified Framadate server
+ */
 export async function createPoll (url, options) {
   // framadate does not expose an API, so we need to interact with the web interface
 
@@ -90,6 +95,9 @@ export async function createPoll (url, options) {
   }
 }
 
+/**
+ * Delete a poll
+ */
 export async function deletePoll (adminUrl) {
   const resp = await fetch(adminUrl, {
     method: 'POST',
